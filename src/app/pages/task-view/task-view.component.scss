@@ -1,0 +1,112 @@
+@use "../../../main-styles.scss" as ms;
+
+@mixin container {
+  width: 100%;
+  height: 100%;
+}
+
+@mixin flexCol {
+  display: flex;
+  flex-direction: column;
+}
+
+$max-height: 680px;
+$max-width: 1000px;
+$border-radius: 8px;
+$width: 90%;
+
+.container {
+  @include container();
+  display: flex;
+  align-items: center;
+
+  .task-manager-container {
+    @include container();
+    max-height: $max-height;
+    max-width: $max-width;
+
+    .sidebar {
+      background: white;
+      padding: 42px;
+      border-top-left-radius: $border-radius;
+      border-bottom-left-radius: $border-radius;
+      @include flexCol();
+      justify-content: space-between;
+
+      .list-menu {
+        @include ms.hideScrollBar();
+        @include flexCol();
+        margin-top: 15px;
+        max-height: 490px;
+
+        .list-menu-item {
+          align-items: center;
+          padding: 10px 15px;
+          border-radius: $border-radius - 3;
+          width: $width;
+          color: #5f5f5f;
+          margin-bottom: 5px;
+          text-decoration: none;
+
+          &:hover {
+            background: ms.$light;
+          }
+
+          &.is-active {
+            background-color: #cff8ef;
+            color: ms.$dark-green;
+          }
+        }
+      }
+
+      .new-list-btn {
+        width: $width;
+      }
+    }
+
+    .task-list-container {
+      border-top-right-radius: $border-radius;
+      border-bottom-right-radius: $border-radius;
+      background: #eeeeee;
+      padding: 42px;
+
+      .task-list {
+        max-height: $max-height - 80;
+        @include ms.hideScrollBar();
+
+        .task {
+          display: flex;
+          align-content: center;
+          background: white;
+          padding: 15px 20px;
+          border-radius: $border-radius - 3;
+          margin-top: 10px;
+
+          &:not(.complete) {
+            cursor: pointer;
+            transition: box-shadow 0.5s ease, transform 0.2s ease;
+
+            &:active {
+              transform: scale(0.95);
+            }
+
+            &:hover {
+              box-shadow: 0 0 0 5px #dfdfdf;
+            }
+          }
+
+          &.complete {
+            text-decoration: line-through;
+            opacity: 0.8;
+          }
+        }
+      }
+    }
+  }
+}
+
+.title {
+  font-family: "Lato";
+  font-size: 20px;
+  color: ms.$green;
+}
