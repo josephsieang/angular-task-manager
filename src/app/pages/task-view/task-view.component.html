@@ -25,10 +25,44 @@
     </div>
     <div class="col-8 task-list-container">
       <div>
-        <h3 class="title">TASKS</h3>
+        <div class="task-header">
+          <h3 class="title">TASKS</h3>
+
+          <div class="dropdown">
+            <button
+              class="btn btn-secondary dropdown-toggle"
+              type="button"
+              id="dropdownMenuButton"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              <fa-icon [icon]="listSettingIcon"></fa-icon>
+            </button>
+            <div
+              class="dropdown-menu dropdown-menu-right"
+              aria-labelledby="dropdownMenuButton"
+            >
+              <a class="dropdown-item" href="#">Edit the list</a>
+              <a class="dropdown-item" href="#">Delete the list</a>
+              <a class="dropdown-item" href="#">Delete the whole list</a>
+            </div>
+          </div>
+        </div>
+
         <div class="task-list">
           <div class="task" *ngFor="let task of tasks">
-            {{ task.title }}
+            <div>
+              {{ task.title }}
+            </div>
+            <div>
+              <button class="btn btn-warning">
+                <fa-icon [icon]="taskEditIcon"></fa-icon>
+              </button>
+              <button class="btn btn-danger ml-3">
+                <fa-icon [icon]="taskDeleteIcon"></fa-icon>
+              </button>
+            </div>
           </div>
         </div>
       </div>

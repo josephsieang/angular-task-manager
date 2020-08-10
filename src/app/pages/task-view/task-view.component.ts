@@ -2,6 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { TaskService } from 'src/app/task.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { listsInterface } from 'src/app/task-local-storage.service';
+import {
+  faCog,
+  faTrashAlt,
+  faUserEdit,
+} from '@fortawesome/free-solid-svg-icons';
 
 interface taskInterface {
   title: string;
@@ -16,6 +21,9 @@ interface taskInterface {
 export class TaskViewComponent implements OnInit {
   lists: listsInterface[];
   tasks: taskInterface[];
+  listSettingIcon = faCog;
+  taskDeleteIcon = faTrashAlt;
+  taskEditIcon = faUserEdit;
 
   constructor(
     private taskService: TaskService,
