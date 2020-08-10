@@ -4,43 +4,21 @@
       <div>
         <h3 class="title">LISTS</h3>
         <div class="list-menu">
-          <a class="list-menu-item is-active">
-            <p>List #1</p>
-          </a>
-          <a class="list-menu-item">
-            <p>List #1</p>
-          </a>
-          <a class="list-menu-item">
-            <p>List #1</p>
-          </a>
-          <a class="list-menu-item">
-            <p>List #1</p>
-          </a>
-          <a class="list-menu-item">
-            <p>List #1</p>
-          </a>
-          <a class="list-menu-item">
-            <p>List #1</p>
-          </a>
-          <a class="list-menu-item">
-            <p>List #1</p>
-          </a>
-          <a class="list-menu-item">
-            <p>List #1</p>
-          </a>
-          <a class="list-menu-item">
-            <p>List #1</p>
-          </a>
-          <a class="list-menu-item">
-            <p>List #1</p>
-          </a>
-          <a class="list-menu-item">
-            <p>List #1</p>
+          <a
+            class="list-menu-item"
+            *ngFor="let list of lists"
+            [routerLink]="['/lists', list.title]"
+          >
+            <p>{{ list.title }}</p>
           </a>
         </div>
       </div>
 
-      <button class="btn btn-primary new-list-btn">
+      <button
+        type="button"
+        class="btn btn-primary new-list-btn"
+        (click)="createNewLists()"
+      >
         + New List
       </button>
     </div>

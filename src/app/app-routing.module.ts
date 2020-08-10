@@ -5,7 +5,9 @@ import { NewListComponent } from './pages/new/new-list/new-list.component';
 import { NewTaskComponent } from './pages/new/new-task/new-task.component';
 
 const routes: Routes = [
-  { path: '', component: TaskViewComponent },
+  { path: '', redirectTo: 'lists', pathMatch: 'full' },
+  { path: 'lists', component: TaskViewComponent },
+  { path: 'lists/:listName', component: TaskViewComponent },
   { path: 'new-list', component: NewListComponent },
   { path: 'new-task', component: NewTaskComponent },
 ];

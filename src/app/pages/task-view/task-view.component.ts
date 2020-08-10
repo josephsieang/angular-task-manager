@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { TaskService } from 'src/app/task.service';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { listsInterface } from 'src/app/task-local-storage.service';
 
 @Component({
   selector: 'app-task-view',
@@ -7,6 +10,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TaskViewComponent implements OnInit {
   constructor() {}
+  lists: listsInterface[];
+  constructor(
+    private taskService: TaskService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.lists = this.taskService.getLists();
+  }
+
+  createNewLists() {
+    this.router.navigate(['/new-list']);
+  }
 }

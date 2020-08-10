@@ -12,14 +12,23 @@
             type="text"
             placeholder="Please enter the list name..."
             class="input-name"
+            #inputRef
           />
         </div>
       </div>
       <!-- I think that I cannot use directly use justify-content-end in row class because I have wrap a row and col between container and this row-->
       <div class="row mt-3">
         <div class="col btn-col">
-          <button type="button" class="btn btn-danger">Cancel</button>
-          <button type="button" class="btn btn-success ml-3">Create</button>
+          <button type="button" class="btn btn-danger" (click)="cancel()">
+            Cancel
+          </button>
+          <button
+            type="button"
+            class="btn btn-success ml-3"
+            (click)="createNewList(inputRef.value)"
+          >
+            Create
+          </button>
         </div>
       </div>
     </div>
