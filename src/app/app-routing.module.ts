@@ -9,7 +9,7 @@ const routes: Routes = [
   { path: 'lists', component: TaskViewComponent },
   { path: 'lists/:listName', component: TaskViewComponent },
   { path: 'new-list', component: NewListComponent },
-  { path: 'new-task', component: NewTaskComponent },
+  { path: 'lists/:listName/new-task', component: NewTaskComponent },
 ];
 
 @NgModule({

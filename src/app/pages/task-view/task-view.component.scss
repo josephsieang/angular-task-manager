@@ -57,8 +57,8 @@ $width: 90%;
       border-bottom-right-radius: $border-radius;
       background: #eeeeee;
       padding: 42px;
-      display: flex;
-      flex-direction: column;
+      @include ms.flexCol();
+      justify-content: space-between;
 
       .btn-new-task {
         width: 50px;

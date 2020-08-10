@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {
   TaskLocalStorageService,
   listsInterface,
+  tasksInterface,
 } from './task-local-storage.service';
 
 @Injectable({
@@ -16,5 +17,13 @@ export class TaskService {
 
   getLists(): listsInterface[] {
     return this.taskLocalStorageService.getLists();
+  }
+
+  createTask(title: string): tasksInterface[] {
+    return this.taskLocalStorageService.createTasks(title);
+  }
+
+  getTasks(): tasksInterface[] {
+    return this.taskLocalStorageService.getTasks();
   }
 }
