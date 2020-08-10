@@ -25,7 +25,7 @@ $width: 90%;
         @include ms.hideScrollBar();
         @include ms.flexCol();
         margin-top: 15px;
-        max-height: 490px;
+        max-height: $max-height - 200;
 
         .list-menu-item {
           align-items: center;
@@ -68,7 +68,7 @@ $width: 90%;
       }
 
       .task-list {
-        max-height: $max-height - 165;
+        max-height: $max-height - 200;
         @include ms.hideScrollBar();
 
         .task {
