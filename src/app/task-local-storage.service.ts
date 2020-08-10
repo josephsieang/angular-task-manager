@@ -56,28 +56,51 @@ export class TaskLocalStorageService {
     return this.getTasks();
   }
 
-  createLists(title: string) {
+  createLists(title: string): listsInterface[] {
     this.lists.push({ title: title });
     return this.updateListsInLocalStorage();
   }
 
-  createTasks(title: string) {
-    let listTitleFromRoute = this.route.url.split('/')[2];
+  private getListTitleFromRoute() {
+    return this.route.url.split('/')[2];
+  }
+
+  createTasks(title: string): tasksInterface[] {
     let newListTitle = true;
 
     for (let { listTitle, tasks } of this.tasks) {
-      if (listTitle === listTitleFromRoute) {
+      if (listTitle === this.getListTitleFromRoute()) {
         tasks.push({ title: title, completed: false });
         newListTitle = false;
       }
     }
     if (newListTitle) {
       this.tasks.push({
-        listTitle: listTitleFromRoute,
+        listTitle: this.getListTitleFromRoute(),
         tasks: [{ title: title, completed: false }],
       });
     }
 
     return this.updateTasksInLocalStorage();
+  }
+
+  editLists(newTitle: string): listsInterface[] {
+    for (let i = 0; i < this.tasks.length; ++i) {
+      const { listTitle } = this.tasks[i];
+      if (listTitle === this.getListTitleFromRoute()) {
+        console.log('first: ', listTitle);
+        this.tasks[i]['listTitle'] = newTitle;
+      }
+    }
+
+    for (let i = 0; i < this.lists.length; ++i) {
+      const { title } = this.lists[i];
+      if (title === this.getListTitleFromRoute()) {
+        this.lists[i]['title'] = newTitle;
+      }
+    }
+
+    this.updateTasksInLocalStorage();
+    return this.updateListsInLocalStorage();
   }
 }

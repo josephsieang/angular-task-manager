@@ -7,6 +7,7 @@ import { TaskViewComponent } from './pages/task-view/task-view.component';
 import { NewListComponent } from './pages/new/new-list/new-list.component';
 import { NewTaskComponent } from './pages/new/new-task/new-task.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { EditListComponent } from './pages/new/edit-list/edit-list.component';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     TaskViewComponent,
     NewListComponent,
     NewTaskComponent,
+    EditListComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, FontAwesomeModule],
   providers: [],

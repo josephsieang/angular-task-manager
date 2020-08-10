@@ -26,4 +26,8 @@ export class TaskService {
   getTasks(): tasksInterface[] {
     return this.taskLocalStorageService.getTasks();
   }
+
+  editList(title: string): listsInterface[] {
+    return this.taskLocalStorageService.editLists(title);
+  }
 }

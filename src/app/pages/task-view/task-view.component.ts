@@ -52,4 +52,8 @@ export class TaskViewComponent implements OnInit {
   createNewTasks() {
     this.router.navigate([this.router.url, 'new-task']);
   }
+
+  editList() {
+    this.router.navigate([this.router.url, 'edit-list']);
+  }
 }
