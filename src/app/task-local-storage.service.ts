@@ -137,6 +137,36 @@ export class TaskLocalStorageService {
         break;
       }
     }
+
+    this.updateTasksInLocalStorage();
+  }
+
+  deleteList(deleteTitle: string) {
+    for (let i = 0; i < this.lists.length; ++i) {
+      const { title } = this.lists[i];
+
+      if (title === deleteTitle) {
+        this.lists.splice(i, 1);
+      }
+    }
+
+    for (let i = 0; i < this.tasks.length; ++i) {
+      const { listTitle } = this.tasks[i];
+
+      if (listTitle === deleteTitle) {
+        this.tasks.splice(i, 1);
+      }
+    }
+
+    this.updateListsInLocalStorage();
+    this.updateTasksInLocalStorage();
+  }
+
+  deleteWholeList() {
+    this.lists = [];
+    this.tasks = [];
+
+    this.updateListsInLocalStorage();
     this.updateTasksInLocalStorage();
   }
 }

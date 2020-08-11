@@ -73,6 +73,20 @@ export class TaskViewComponent implements OnInit {
     });
   }
 
+  deleteList(): void {
+    let deleteTitle = '';
+    this.route.params.subscribe((params: Params) => {
+      deleteTitle = params['listName'];
+    });
+    this.taskService.deleteList(deleteTitle);
+    this.router.navigate(['']);
+  }
+
+  deleteWholeList(): void {
+    this.taskService.deleteWholeList();
+    this.router.navigate(['']);
+  }
+
   deleteTask(title: string): void {
     this.taskService.deleteTask(title);
   }

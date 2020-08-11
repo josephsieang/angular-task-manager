@@ -44,8 +44,12 @@
               aria-labelledby="dropdownMenuButton"
             >
               <a class="dropdown-item" (click)="editList()">Edit the list</a>
-              <a class="dropdown-item" href="#">Delete the list</a>
-              <a class="dropdown-item" href="#">Delete the whole list</a>
+              <a class="dropdown-item" (click)="deleteList()"
+                >Delete the list</a
+              >
+              <a class="dropdown-item" (click)="deleteWholeList()"
+                >Delete the whole list</a
+              >
             </div>
           </div>
         </div>
