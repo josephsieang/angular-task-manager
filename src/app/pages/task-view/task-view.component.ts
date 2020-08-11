@@ -72,4 +72,8 @@ export class TaskViewComponent implements OnInit {
       queryParams: { taskname: title },
     });
   }
+
+  deleteTask(title: string): void {
+    this.taskService.deleteTask(title);
+  }
 }

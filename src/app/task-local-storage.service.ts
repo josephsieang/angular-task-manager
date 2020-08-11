@@ -122,4 +122,21 @@ export class TaskLocalStorageService {
 
     this.updateTasksInLocalStorage();
   }
+
+  deleteTask(deleteTitle: string) {
+    for (let i = 0; i < this.tasks.length; ++i) {
+      const { listTitle } = this.tasks[i];
+      if (listTitle === this.getListTitleFromRoute()) {
+        for (let j = 0; j < this.tasks[i].tasks.length; j++) {
+          const { title } = this.tasks[i].tasks[j];
+          if (title === deleteTitle) {
+            this.tasks[i].tasks.splice(j, 1);
+            break;
+          }
+        }
+        break;
+      }
+    }
+    this.updateTasksInLocalStorage();
+  }
 }

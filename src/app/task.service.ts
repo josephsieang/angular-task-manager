@@ -34,4 +34,9 @@ export class TaskService {
   editTask(newTitle: string, oldTitle: string) {
     this.taskLocalStorageService.editTasks(newTitle, oldTitle);
   }
+
+  deleteTask(title: string) {
+    if (confirm('Are you sure to delete this task?'))
+      this.taskLocalStorageService.deleteTask(title);
+  }
 }

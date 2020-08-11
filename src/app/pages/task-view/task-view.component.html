@@ -59,7 +59,10 @@
               <button class="btn btn-warning" (click)="editTask(task.title)">
                 <fa-icon [icon]="taskEditIcon"></fa-icon>
               </button>
-              <button class="btn btn-danger ml-3">
+              <button
+                class="btn btn-danger ml-3"
+                (click)="deleteTask(task.title)"
+              >
                 <fa-icon [icon]="taskDeleteIcon"></fa-icon>
               </button>
             </div>
