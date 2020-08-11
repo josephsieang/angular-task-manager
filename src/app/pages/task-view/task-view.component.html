@@ -1,0 +1,78 @@
+<div class="container">
+  <div class="row task-manager-container">
+    <div class="col-4 sidebar">
+      <div>
+        <h3 class="title">LISTS</h3>
+        <div class="list-menu">
+          <a
+            class="list-menu-item"
+            *ngFor="let list of lists"
+            [routerLink]="['/lists', list.title]"
+            [routerLinkActive]="['is-active']"
+          >
+            <div>{{ list.title }}</div>
+          </a>
+        </div>
+      </div>
+
+      <button
+        type="button"
+        class="btn btn-primary new-list-btn"
+        (click)="createNewLists()"
+      >
+        + New List
+      </button>
+    </div>
+    <div class="col-8 task-list-container">
+      <div>
+        <div class="task-header">
+          <h3 class="title">TASKS</h3>
+
+          <div class="dropdown">
+            <button
+              class="btn btn-secondary dropdown-toggle"
+              type="button"
+              id="dropdownMenuButton"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              <fa-icon [icon]="listSettingIcon"></fa-icon>
+            </button>
+            <div
+              class="dropdown-menu dropdown-menu-right"
+              aria-labelledby="dropdownMenuButton"
+            >
+              <a class="dropdown-item" (click)="editList()">Edit the list</a>
+              <a class="dropdown-item" href="#">Delete the list</a>
+              <a class="dropdown-item" href="#">Delete the whole list</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="task-list">
+          <div class="task" *ngFor="let task of tasks">
+            <div #taskTitleRef>
+              {{ task.title }}
+            </div>
+            <div>
+              <button class="btn btn-warning" (click)="editTask(task.title)">
+                <fa-icon [icon]="taskEditIcon"></fa-icon>
+              </button>
+              <button class="btn btn-danger ml-3">
+                <fa-icon [icon]="taskDeleteIcon"></fa-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button
+        class="btn btn-info rounded-circle btn-new-task"
+        (click)="createNewTasks()"
+      >
+        +
+      </button>
+    </div>
+  </div>
+</div>

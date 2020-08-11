@@ -1,0 +1,30 @@
+@use "../../../main-styles" as ms;
+
+$max-width: 600px;
+$row-padding: 30px;
+$border-radius: 5px;
+
+.container {
+  @include ms.container();
+  @include ms.flexCol();
+  justify-content: center;
+  max-width: $max-width;
+  border-radius: $border-radius;
+}
+
+.pad-row {
+  background: ms.$light;
+  padding: $row-padding;
+}
+
+.btn-col {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.input-name {
+  width: 100%;
+  padding: 12px 20px;
+  border: 1px solid #cccccc;
+  border-radius: $border-radius;
+}
