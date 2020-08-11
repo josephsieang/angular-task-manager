@@ -1,0 +1,37 @@
+// Import Google fonts: Lato and Nunito
+@import url("https://fonts.googleapis.com/css2?family=Lato&family=Nunito&display=swap");
+
+$turquoise: #44ddd0;
+$green: #27d7a1;
+$light-green: #45f69e;
+$dark-green: rba(0, 100, 80);
+$light: #f8f8f8;
+
+$family-sans-serif: "Nunito", sans-serif;
+$primary: $green;
+
+$link: $light-green;
+
+$control-border-width: 2px;
+$input-border-color: transparent;
+$input-shadow: none;
+
+@mixin hideScrollBar {
+  overflow-y: scroll;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+html,
+body {
+  background: linear-gradient(to right top, $turquoise, $green);
+  height: 100%;
+  padding: 25px;
+  overflow-y: scroll;
+  @include hideScrollBar();
+}
