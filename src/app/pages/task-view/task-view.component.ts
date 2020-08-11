@@ -1,4 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  ElementRef,
+  ViewChildren,
+  QueryList,
+} from '@angular/core';
 import { TaskService } from 'src/app/task.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { listsInterface } from 'src/app/task-local-storage.service';
@@ -24,6 +31,7 @@ export class TaskViewComponent implements OnInit {
   listSettingIcon = faCog;
   taskDeleteIcon = faTrashAlt;
   taskEditIcon = faUserEdit;
+  @ViewChildren('taskTitleRef') taskTitleRef: QueryList<any>;
 
   constructor(
     private taskService: TaskService,
@@ -45,15 +53,23 @@ export class TaskViewComponent implements OnInit {
     this.lists = this.taskService.getLists();
   }
 
-  createNewLists() {
+  createNewLists(): void {
     this.router.navigate(['/new-list']);
   }
 
-  createNewTasks() {
+  createNewTasks(): void {
     this.router.navigate([this.router.url, 'new-task']);
   }
 
-  editList() {
-    this.router.navigate([this.router.url, 'edit-list']);
+  editList(): void {
+    // this.router.navigate([this.router.url, 'edit-list']);
+    this.router.navigate(['edit-list'], { relativeTo: this.route });
+  }
+
+  editTask(title: string): void {
+    this.router.navigate(['edit-task'], {
+      relativeTo: this.route,
+      queryParams: { taskname: title },
+    });
   }
 }

@@ -52,11 +52,11 @@
 
         <div class="task-list">
           <div class="task" *ngFor="let task of tasks">
-            <div>
+            <div #taskTitleRef>
               {{ task.title }}
             </div>
             <div>
-              <button class="btn btn-warning">
+              <button class="btn btn-warning" (click)="editTask(task.title)">
                 <fa-icon [icon]="taskEditIcon"></fa-icon>
               </button>
               <button class="btn btn-danger ml-3">

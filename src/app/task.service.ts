@@ -30,4 +30,8 @@ export class TaskService {
   editList(title: string): listsInterface[] {
     return this.taskLocalStorageService.editLists(title);
   }
+
+  editTask(newTitle: string, oldTitle: string) {
+    this.taskLocalStorageService.editTasks(newTitle, oldTitle);
+  }
 }

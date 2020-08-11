@@ -88,8 +88,8 @@ export class TaskLocalStorageService {
     for (let i = 0; i < this.tasks.length; ++i) {
       const { listTitle } = this.tasks[i];
       if (listTitle === this.getListTitleFromRoute()) {
-        console.log('first: ', listTitle);
         this.tasks[i]['listTitle'] = newTitle;
+        break;
       }
     }
 
@@ -97,10 +97,29 @@ export class TaskLocalStorageService {
       const { title } = this.lists[i];
       if (title === this.getListTitleFromRoute()) {
         this.lists[i]['title'] = newTitle;
+        break;
       }
     }
 
     this.updateTasksInLocalStorage();
     return this.updateListsInLocalStorage();
+  }
+
+  editTasks(newTitle: string, oldTitle: string) {
+    for (let i = 0; i < this.tasks.length; ++i) {
+      const { listTitle } = this.tasks[i];
+      if (listTitle === this.getListTitleFromRoute()) {
+        for (let j = 0; j < this.tasks[i].tasks.length; j++) {
+          const { title, completed } = this.tasks[i].tasks[j];
+          if (title === oldTitle) {
+            this.tasks[i].tasks[j].title = newTitle;
+            break;
+          }
+        }
+        break;
+      }
+    }
+
+    this.updateTasksInLocalStorage();
   }
 }
