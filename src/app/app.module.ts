@@ -4,17 +4,18 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TaskViewComponent } from './pages/task-view/task-view.component';
+import { NewListComponent } from './pages/new/new-list/new-list.component';
+import { NewTaskComponent } from './pages/new/new-task/new-task.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    TaskViewComponent
+    TaskViewComponent,
+    NewListComponent,
+    NewTaskComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule
-  ],
+  imports: [BrowserModule, AppRoutingModule],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

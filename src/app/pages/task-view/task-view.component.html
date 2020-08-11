@@ -4,89 +4,41 @@
       <div>
         <h3 class="title">LISTS</h3>
         <div class="list-menu">
-          <a class="list-menu-item is-active">
-            <p>List #1</p>
-          </a>
-          <a class="list-menu-item">
-            <p>List #1</p>
-          </a>
-          <a class="list-menu-item">
-            <p>List #1</p>
-          </a>
-          <a class="list-menu-item">
-            <p>List #1</p>
-          </a>
-          <a class="list-menu-item">
-            <p>List #1</p>
-          </a>
-          <a class="list-menu-item">
-            <p>List #1</p>
-          </a>
-          <a class="list-menu-item">
-            <p>List #1</p>
-          </a>
-          <a class="list-menu-item">
-            <p>List #1</p>
-          </a>
-          <a class="list-menu-item">
-            <p>List #1</p>
-          </a>
-          <a class="list-menu-item">
-            <p>List #1</p>
-          </a>
-          <a class="list-menu-item">
-            <p>List #1</p>
+          <a
+            class="list-menu-item"
+            *ngFor="let list of lists"
+            [routerLink]="['/lists', list.title]"
+            [routerLinkActive]="['is-active']"
+          >
+            <p>{{ list.title }}</p>
           </a>
         </div>
       </div>
 
-      <button class="btn btn-primary new-list-btn">
+      <button
+        type="button"
+        class="btn btn-primary new-list-btn"
+        (click)="createNewLists()"
+      >
         + New List
       </button>
     </div>
     <div class="col-8 task-list-container">
-      <h3 class="title">TASKS</h3>
-
-      <div class="task-list">
-        <div class="task">
-          This is something I need to to!
-        </div>
-        <div class="task">
-          This is something I need to to!
-        </div>
-        <div class="task complete">
-          This is something I need to to!
-        </div>
-        <div class="task">
-          This is something I need to to!
-        </div>
-        <div class="task">
-          This is something I need to to!
-        </div>
-        <div class="task complete">
-          This is something I need to to!
-        </div>
-        <div class="task">
-          This is something I need to to!
-        </div>
-        <div class="task">
-          This is something I need to to!
-        </div>
-        <div class="task complete">
-          This is something I need to to!
-        </div>
-        <div class="task">
-          This is something I need to to!
-        </div>
-        <div class="task">
-          This is something I need to to!
-        </div>
-        <div class="task complete">
-          This is something I need to to!
+      <div>
+        <h3 class="title">TASKS</h3>
+        <div class="task-list">
+          <div class="task" *ngFor="let task of tasks">
+            {{ task.title }}
+          </div>
         </div>
       </div>
 
-      <button class="btn btn-info rounded-circle btn-new-task">+</button>
+      <button
+        class="btn btn-info rounded-circle btn-new-task"
+        (click)="createNewTasks()"
+      >
+        +
+      </button>
     </div>
   </div>
 </div>
