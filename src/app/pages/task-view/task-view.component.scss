@@ -28,7 +28,6 @@ $width: 90%;
         max-height: $max-height - 200;
 
         .list-menu-item {
-          align-items: center;
           padding: 10px 15px;
           border-radius: $border-radius - 3;
           width: $width;
@@ -60,6 +59,11 @@ $width: 90%;
       @include ms.flexCol();
       justify-content: space-between;
 
+      .task-header {
+        display: flex;
+        justify-content: space-between;
+      }
+
       .btn-new-task {
         width: 50px;
         height: 50px;
@@ -73,7 +77,8 @@ $width: 90%;
 
         .task {
           display: flex;
-          align-content: center;
+          align-items: center;
+          justify-content: space-between;
           background: white;
           padding: 15px 20px;
           border-radius: $border-radius - 3;
@@ -106,4 +111,8 @@ $width: 90%;
   font-family: "Lato";
   font-size: 20px;
   color: ms.$green;
+}
+
+.dropdown-toggle::after {
+  display: none;
 }
