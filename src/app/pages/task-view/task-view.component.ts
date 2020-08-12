@@ -29,11 +29,16 @@ export class TaskViewComponent implements OnInit {
     private taskService: TaskService,
     private route: ActivatedRoute,
     private router: Router
-  ) {}
+  ) {
+    // trick the router into rendering a fresh copy of current component by temporarily overriding route reuse strategy
+    this.router.routeReuseStrategy.shouldReuseRoute = function () {
+      return false;
+    };
+  }
 
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {
-      let allTasks = this.taskService.getTasks();
+      const allTasks = this.taskService.getTasks();
       this.tasks = [];
       for (let { listTitle, tasks } of allTasks) {
         if (listTitle === params['listName']) {
