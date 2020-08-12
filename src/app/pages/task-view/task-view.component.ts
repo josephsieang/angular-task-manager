@@ -24,6 +24,7 @@ export class TaskViewComponent implements OnInit {
   listSettingIcon = faCog;
   taskDeleteIcon = faTrashAlt;
   taskEditIcon = faUserEdit;
+  disabled = true;
 
   constructor(
     private taskService: TaskService,
@@ -48,6 +49,7 @@ export class TaskViewComponent implements OnInit {
     });
 
     this.lists = this.taskService.getLists();
+    if (this.lists.length > 0) this.disabled = false;
   }
 
   createNewLists(): void {
