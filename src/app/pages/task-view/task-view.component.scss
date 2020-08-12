@@ -97,11 +97,6 @@ $width: 90%;
               box-shadow: 0 0 0 5px #dfdfdf;
             }
           }
-
-          &.complete {
-            text-decoration: line-through;
-            opacity: 0.8;
-          }
         }
       }
     }
@@ -120,4 +115,9 @@ $width: 90%;
 
 .dropdown-item {
   cursor: pointer;
+}
+
+.complete {
+  text-decoration: line-through;
+  opacity: 0.8;
 }

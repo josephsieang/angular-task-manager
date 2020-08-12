@@ -1,11 +1,4 @@
-import {
-  Component,
-  OnInit,
-  ViewChild,
-  ElementRef,
-  ViewChildren,
-  QueryList,
-} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TaskService } from 'src/app/task.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { listsInterface } from 'src/app/task-local-storage.service';
@@ -31,7 +24,6 @@ export class TaskViewComponent implements OnInit {
   listSettingIcon = faCog;
   taskDeleteIcon = faTrashAlt;
   taskEditIcon = faUserEdit;
-  @ViewChildren('taskTitleRef') taskTitleRef: QueryList<any>;
 
   constructor(
     private taskService: TaskService,
@@ -89,5 +81,9 @@ export class TaskViewComponent implements OnInit {
 
   deleteTask(title: string): void {
     this.taskService.deleteTask(title);
+  }
+
+  taskCompletion(title: string) {
+    this.taskService.editTask(title, null, true);
   }
 }
