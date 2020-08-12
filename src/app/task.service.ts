@@ -31,8 +31,12 @@ export class TaskService {
     return this.taskLocalStorageService.editLists(title);
   }
 
-  editTask(newTitle: string, oldTitle: string) {
-    this.taskLocalStorageService.editTasks(newTitle, oldTitle);
+  editTask(oldTitle: string, newTitle?: string, switchIsCompleted?: boolean) {
+    this.taskLocalStorageService.editTasks(
+      oldTitle,
+      newTitle,
+      switchIsCompleted
+    );
   }
 
   deleteTask(title: string) {

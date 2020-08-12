@@ -21,7 +21,7 @@ export class EditTaskComponent implements OnInit {
     this.route.queryParams.subscribe((params) => {
       oldTitle = params['taskname'];
     });
-    this.taskService.editTask(newTitle, oldTitle);
+    this.taskService.editTask(oldTitle, newTitle);
     this.router.navigate([
       this.router.url.substr(0, this.router.url.lastIndexOf('/')),
     ]);

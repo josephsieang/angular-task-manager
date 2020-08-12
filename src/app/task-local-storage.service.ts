@@ -105,14 +105,18 @@ export class TaskLocalStorageService {
     return this.updateListsInLocalStorage();
   }
 
-  editTasks(newTitle: string, oldTitle: string) {
+  editTasks(oldTitle: string, newTitle?: string, switchIsCompleted?: boolean) {
     for (let i = 0; i < this.tasks.length; ++i) {
       const { listTitle } = this.tasks[i];
       if (listTitle === this.getListTitleFromRoute()) {
         for (let j = 0; j < this.tasks[i].tasks.length; j++) {
           const { title, completed } = this.tasks[i].tasks[j];
           if (title === oldTitle) {
-            this.tasks[i].tasks[j].title = newTitle;
+            if (newTitle) this.tasks[i].tasks[j].title = newTitle;
+            if (switchIsCompleted) {
+              console.log(this.tasks[i].tasks[j].completed);
+              this.tasks[i].tasks[j].completed = !completed;
+            }
             break;
           }
         }
