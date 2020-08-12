@@ -55,8 +55,12 @@
         </div>
 
         <div class="task-list">
-          <div class="task" *ngFor="let task of tasks">
-            <div #taskTitleRef>
+          <div
+            class="task"
+            *ngFor="let task of tasks"
+            (click)="taskCompletion(task.title)"
+          >
+            <div [ngClass]="{ complete: task.completed }">
               {{ task.title }}
             </div>
             <div>
