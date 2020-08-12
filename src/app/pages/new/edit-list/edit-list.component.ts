@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { TaskService } from 'src/app/task.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute, Params } from '@angular/router';
+import { UrlEncodingService } from 'src/app/url-encoding.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-edit-list',
@@ -8,9 +10,20 @@ import { Router } from '@angular/router';
   styleUrls: ['./edit-list.component.scss'],
 })
 export class EditListComponent implements OnInit {
-  constructor(private taskService: TaskService, private router: Router) {}
+  oldTitle: string;
 
-  ngOnInit(): void {}
+  constructor(
+    private taskService: TaskService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private location: Location
+  ) {}
+
+  ngOnInit(): void {
+    this.route.params.subscribe((params: Params) => {
+      this.oldTitle = params['listName'];
+    });
+  }
 
   editList(title: string): void {
     this.taskService.editList(title);
@@ -18,8 +31,6 @@ export class EditListComponent implements OnInit {
   }
 
   cancel() {
-    this.router.navigate([
-      this.router.url.substr(0, this.router.url.lastIndexOf('/')),
-    ]);
+    this.location.back();
   }
 }
