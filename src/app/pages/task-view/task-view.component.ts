@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { TaskService } from 'src/app/task.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { TaskService } from 'src/app/task.service';
 import { listsInterface } from 'src/app/task-local-storage.service';
 import {
   faCog,
@@ -24,16 +24,22 @@ export class TaskViewComponent implements OnInit {
   listSettingIcon = faCog;
   taskDeleteIcon = faTrashAlt;
   taskEditIcon = faUserEdit;
+  disabled = true;
 
   constructor(
     private taskService: TaskService,
     private route: ActivatedRoute,
     private router: Router
-  ) {}
+  ) {
+    // trick the router into rendering a fresh copy of current component by temporarily overriding route reuse strategy
+    this.router.routeReuseStrategy.shouldReuseRoute = function () {
+      return false;
+    };
+  }
 
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {
-      let allTasks = this.taskService.getTasks();
+      const allTasks = this.taskService.getTasks();
       this.tasks = [];
       for (let { listTitle, tasks } of allTasks) {
         if (listTitle === params['listName']) {
@@ -43,6 +49,7 @@ export class TaskViewComponent implements OnInit {
     });
 
     this.lists = this.taskService.getLists();
+    if (this.lists.length > 0) this.disabled = false;
   }
 
   createNewLists(): void {
@@ -50,7 +57,8 @@ export class TaskViewComponent implements OnInit {
   }
 
   createNewTasks(): void {
-    this.router.navigate([this.router.url, 'new-task']);
+    // Fix double space url encoding
+    this.router.navigate(['new-task'], { relativeTo: this.route });
   }
 
   editList(): void {
@@ -83,7 +91,7 @@ export class TaskViewComponent implements OnInit {
     this.taskService.deleteTask(title);
   }
 
-  taskCompletion(title: string) {
+  taskCompletion(title: string): void {
     this.taskService.editTask(title, null, true);
   }
 }

@@ -36,6 +36,7 @@
               data-toggle="dropdown"
               aria-haspopup="true"
               aria-expanded="false"
+              [disabled]="disabled"
             >
               <fa-icon [icon]="listSettingIcon"></fa-icon>
             </button>
@@ -81,6 +82,7 @@
       <button
         class="btn btn-info rounded-circle btn-new-task"
         (click)="createNewTasks()"
+        [disabled]="disabled"
       >
         +
       </button>

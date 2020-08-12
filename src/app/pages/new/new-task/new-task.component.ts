@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TaskService } from '../../../task.service';
 import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-new-task',
@@ -8,20 +9,16 @@ import { Router } from '@angular/router';
   styleUrls: ['./new-task.component.scss'],
 })
 export class NewTaskComponent implements OnInit {
-  constructor(private taskService: TaskService, private router: Router) {}
+  constructor(private taskService: TaskService, private location: Location) {}
 
   ngOnInit(): void {}
 
   createNewTask(title: string) {
     this.taskService.createTask(title);
-    this.router.navigate([
-      this.router.url.substr(0, this.router.url.lastIndexOf('/')),
-    ]);
+    this.location.back();
   }
 
   cancel() {
-    this.router.navigate([
-      this.router.url.substr(0, this.router.url.lastIndexOf('/')),
-    ]);
+    this.location.back();
   }
 }
