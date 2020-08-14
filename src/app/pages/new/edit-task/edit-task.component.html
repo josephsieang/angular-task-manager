@@ -10,8 +10,10 @@
         <div class="col">
           <input
             type="text"
-            placeholder="Please enter the task name..."
+            placeholder="Enter the task name..."
             class="input-name"
+            [value]="oldTitle"
+            appFocus
             #inputRef
           />
         </div>

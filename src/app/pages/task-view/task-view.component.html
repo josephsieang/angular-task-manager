@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row task-manager-container">
-    <div class="col-4 sidebar">
+    <div class="col-12 col-md-4 sidebar">
       <div>
         <h3 class="title">LISTS</h3>
         <div class="list-menu">
@@ -10,7 +10,7 @@
             [routerLink]="['/lists', list.title]"
             [routerLinkActive]="['is-active']"
           >
-            <div>{{ list.title }}</div>
+            <div class="list-title">{{ list.title }}</div>
           </a>
         </div>
       </div>
@@ -23,7 +23,7 @@
         + New List
       </button>
     </div>
-    <div class="col-8 task-list-container">
+    <div class="col-12 col-md-8 task-list-container">
       <div>
         <div class="task-header">
           <h3 class="title">TASKS</h3>
@@ -36,6 +36,7 @@
               data-toggle="dropdown"
               aria-haspopup="true"
               aria-expanded="false"
+              [disabled]="disabled"
             >
               <fa-icon [icon]="listSettingIcon"></fa-icon>
             </button>
@@ -60,17 +61,21 @@
             *ngFor="let task of tasks"
             (click)="taskCompletion(task.title)"
           >
-            <div [ngClass]="{ complete: task.completed }">
+            <div class="task-title" [ngClass]="{ complete: task.completed }">
               {{ task.title }}
             </div>
-            <div>
-              <button class="btn btn-warning" (click)="editTask(task.title)">
+            <div class="ml-2">
+              <button
+                class="btn btn-warning mr-3"
+                (click)="editTask(task.title)"
+              >
                 <fa-icon [icon]="taskEditIcon"></fa-icon>
               </button>
-              <button
-                class="btn btn-danger ml-3"
-                (click)="deleteTask(task.title)"
-              >
+
+              <!-- Force next columns to break to new line for smaller screen -->
+              <div class="w-100 d-md-none d-block hidden"><br /></div>
+
+              <button class="btn btn-danger" (click)="deleteTask(task.title)">
                 <fa-icon [icon]="taskDeleteIcon"></fa-icon>
               </button>
             </div>
@@ -81,6 +86,7 @@
       <button
         class="btn btn-info rounded-circle btn-new-task"
         (click)="createNewTasks()"
+        [disabled]="disabled"
       >
         +
       </button>

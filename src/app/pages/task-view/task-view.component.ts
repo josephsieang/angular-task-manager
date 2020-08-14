@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { TaskService } from 'src/app/task.service';
+import { Component, OnInit, NgZone, OnChanges, DoCheck } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { TaskService } from 'src/app/task.service';
 import { listsInterface } from 'src/app/task-local-storage.service';
 import {
   faCog,
@@ -18,12 +18,14 @@ interface taskInterface {
   templateUrl: './task-view.component.html',
   styleUrls: ['./task-view.component.scss'],
 })
-export class TaskViewComponent implements OnInit {
+export class TaskViewComponent implements OnInit, DoCheck {
   lists: listsInterface[];
   tasks: taskInterface[];
   listSettingIcon = faCog;
   taskDeleteIcon = faTrashAlt;
   taskEditIcon = faUserEdit;
+  disabled = true;
+  prevListLength: number;
 
   constructor(
     private taskService: TaskService,
@@ -32,8 +34,19 @@ export class TaskViewComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.getListsAndTasks();
+  }
+
+  ngDoCheck(): void {
+    const curListLength = this.taskService.getLists().length;
+    if (curListLength !== this.prevListLength) {
+      this.getListsAndTasks();
+    }
+  }
+
+  getListsAndTasks() {
     this.route.params.subscribe((params: Params) => {
-      let allTasks = this.taskService.getTasks();
+      const allTasks = this.taskService.getTasks();
       this.tasks = [];
       for (let { listTitle, tasks } of allTasks) {
         if (listTitle === params['listName']) {
@@ -43,6 +56,10 @@ export class TaskViewComponent implements OnInit {
     });
 
     this.lists = this.taskService.getLists();
+    this.prevListLength = this.lists.length;
+    if (this.prevListLength > 0) {
+      this.disabled = false;
+    }
   }
 
   createNewLists(): void {
@@ -50,7 +67,8 @@ export class TaskViewComponent implements OnInit {
   }
 
   createNewTasks(): void {
-    this.router.navigate([this.router.url, 'new-task']);
+    // Fix double space url encoding
+    this.router.navigate(['new-task'], { relativeTo: this.route });
   }
 
   editList(): void {
@@ -76,14 +94,13 @@ export class TaskViewComponent implements OnInit {
 
   deleteWholeList(): void {
     this.taskService.deleteWholeList();
-    this.router.navigate(['']);
   }
 
   deleteTask(title: string): void {
     this.taskService.deleteTask(title);
   }
 
-  taskCompletion(title: string) {
+  taskCompletion(title: string): void {
     this.taskService.editTask(title, null, true);
   }
 }

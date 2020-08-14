@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { TitleCasePipe } from '@angular/common';
+import { Router } from '@angular/router';
+import { UrlEncodingService } from './url-encoding.service';
 
 export interface listsInterface {
   title: string;
@@ -24,7 +24,10 @@ export class TaskLocalStorageService {
   private lists: listsInterface[];
   private tasks: tasksInterface[];
 
-  constructor(private route: Router) {
+  constructor(
+    private route: Router,
+    private urlEncodingService: UrlEncodingService
+  ) {
     // Parse the data with JSON.parse(), and the data becomes a JavaScript object.
     let lists = localStorage.getItem(storageName + listPath);
     let tasks = localStorage.getItem(storageName + taskPath);
@@ -62,7 +65,7 @@ export class TaskLocalStorageService {
   }
 
   private getListTitleFromRoute() {
-    return this.route.url.split('/')[2];
+    return this.urlEncodingService.ngDecode(this.route.url.split('/')[2]);
   }
 
   createTasks(title: string): tasksInterface[] {

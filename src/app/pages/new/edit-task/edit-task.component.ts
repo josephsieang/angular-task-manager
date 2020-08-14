@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TaskService } from 'src/app/task.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-edit-task',
@@ -8,28 +9,25 @@ import { TaskService } from 'src/app/task.service';
   styleUrls: ['./edit-task.component.scss'],
 })
 export class EditTaskComponent implements OnInit {
+  oldTitle: string = '';
   constructor(
     private route: ActivatedRoute,
     private taskService: TaskService,
-    private router: Router
+    private location: Location
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.route.queryParams.subscribe((params) => {
+      this.oldTitle = params['taskname'];
+    });
+  }
 
   editTask(newTitle: string): void {
-    let oldTitle = '';
-    this.route.queryParams.subscribe((params) => {
-      oldTitle = params['taskname'];
-    });
-    this.taskService.editTask(oldTitle, newTitle);
-    this.router.navigate([
-      this.router.url.substr(0, this.router.url.lastIndexOf('/')),
-    ]);
+    this.taskService.editTask(this.oldTitle, newTitle);
+    this.location.back();
   }
 
   cancel() {
-    this.router.navigate([
-      this.router.url.substr(0, this.router.url.lastIndexOf('/')),
-    ]);
+    this.location.back();
   }
 }
