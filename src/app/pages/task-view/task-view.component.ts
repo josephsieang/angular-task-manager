@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone, OnChanges, DoCheck } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { TaskService } from 'src/app/task.service';
 import { listsInterface } from 'src/app/task-local-storage.service';
@@ -18,26 +18,33 @@ interface taskInterface {
   templateUrl: './task-view.component.html',
   styleUrls: ['./task-view.component.scss'],
 })
-export class TaskViewComponent implements OnInit {
+export class TaskViewComponent implements OnInit, DoCheck {
   lists: listsInterface[];
   tasks: taskInterface[];
   listSettingIcon = faCog;
   taskDeleteIcon = faTrashAlt;
   taskEditIcon = faUserEdit;
   disabled = true;
+  prevListLength: number;
 
   constructor(
     private taskService: TaskService,
     private route: ActivatedRoute,
     private router: Router
-  ) {
-    // trick the router into rendering a fresh copy of current component by temporarily overriding route reuse strategy
-    this.router.routeReuseStrategy.shouldReuseRoute = function () {
-      return false;
-    };
-  }
+  ) {}
 
   ngOnInit(): void {
+    this.getListsAndTasks();
+  }
+
+  ngDoCheck(): void {
+    const curListLength = this.taskService.getLists().length;
+    if (curListLength !== this.prevListLength) {
+      this.getListsAndTasks();
+    }
+  }
+
+  getListsAndTasks() {
     this.route.params.subscribe((params: Params) => {
       const allTasks = this.taskService.getTasks();
       this.tasks = [];
@@ -49,7 +56,10 @@ export class TaskViewComponent implements OnInit {
     });
 
     this.lists = this.taskService.getLists();
-    if (this.lists.length > 0) this.disabled = false;
+    this.prevListLength = this.lists.length;
+    if (this.prevListLength > 0) {
+      this.disabled = false;
+    }
   }
 
   createNewLists(): void {
@@ -84,7 +94,6 @@ export class TaskViewComponent implements OnInit {
 
   deleteWholeList(): void {
     this.taskService.deleteWholeList();
-    this.router.navigate(['']);
   }
 
   deleteTask(title: string): void {
