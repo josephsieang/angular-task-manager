@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { UrlEncodingService } from './url-encoding.service';
+import { Tokens } from './interfaces/tokens';
 
 export interface listsInterface {
   title: string;
@@ -16,6 +17,7 @@ export interface tasksInterface {
 const storageName = 'joseph_task_manager';
 const listPath = '/lists';
 const taskPath = '/tasks';
+const tokenPath = '/token';
 
 @Injectable({
   providedIn: 'root',
@@ -23,6 +25,7 @@ const taskPath = '/tasks';
 export class TaskLocalStorageService {
   private lists: listsInterface[];
   private tasks: tasksInterface[];
+  private tokens: Tokens;
 
   constructor(
     private route: Router,
@@ -175,5 +178,20 @@ export class TaskLocalStorageService {
 
     this.updateListsInLocalStorage();
     this.updateTasksInLocalStorage();
+  }
+
+  private updateTokensInLocalStorage() {
+    // Convert a JavaScript object into a string with JSON.stringify()
+    localStorage.setItem(storageName + tokenPath, JSON.stringify(this.tokens));
+  }
+
+  saveTokens(tokens: Tokens) {
+    console.log('local storage:', tokens);
+    this.tokens = tokens;
+    this.updateTokensInLocalStorage();
+  }
+
+  getTokens(): Tokens {
+    return this.tokens;
   }
 }
