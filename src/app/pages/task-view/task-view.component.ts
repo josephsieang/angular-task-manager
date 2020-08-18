@@ -112,4 +112,8 @@ export class TaskViewComponent implements OnInit, DoCheck {
   signOut() {
     this.authenticationService.logout();
   }
+
+  obtainChildLength(): number {
+    return this.route.children.length;
+  }
 }

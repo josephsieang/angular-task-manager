@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" *ngIf="obtainChildLength() === 0">
   <div class="row task-manager-container">
     <div class="col-12 col-md-4 sidebar">
       <div>
@@ -109,3 +109,4 @@
     </div>
   </div>
 </div>
+<router-outlet></router-outlet>
