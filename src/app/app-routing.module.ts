@@ -5,11 +5,20 @@ import { NewListComponent } from './pages/new/new-list/new-list.component';
 import { NewTaskComponent } from './pages/new/new-task/new-task.component';
 import { EditListComponent } from './pages/new/edit-list/edit-list.component';
 import { EditTaskComponent } from './pages/new/edit-task/edit-task.component';
+import { HomeComponent } from './home/home.component';
+import { AuthGuardService } from './auth-guard.service';
+import { LoadingComponent } from './loading/loading.component';
 
 const routes: Routes = [
-  { path: 'lists', component: TaskViewComponent },
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
+  { path: 'loading', component: LoadingComponent },
+  {
+    path: 'lists',
+    component: TaskViewComponent,
+    canActivate: [AuthGuardService],
+  },
+  {
     path: 'lists/:listName',
     component: TaskViewComponent,
   },

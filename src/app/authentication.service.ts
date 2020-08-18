@@ -52,7 +52,7 @@ export class AuthenticationService {
     this.oauthService.logOut();
   }
 
-  testValidAccessToken() {
+  saveTokensToSessionStorage() {
     this.oauthService.tryLoginImplicitFlow().then(() => {
       this.router.navigate(['/lists']);
     });
