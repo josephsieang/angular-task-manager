@@ -7,9 +7,12 @@ import { EditListComponent } from './pages/new/edit-list/edit-list.component';
 import { EditTaskComponent } from './pages/new/edit-task/edit-task.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'lists', pathMatch: 'full' },
   { path: 'lists', component: TaskViewComponent },
-  { path: 'lists/:listName', component: TaskViewComponent },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: 'home', component: HomeComponent },
+    path: 'lists/:listName',
+    component: TaskViewComponent,
+  },
   { path: 'lists/:listName/edit-list', component: EditListComponent },
   { path: 'lists/:listName/edit-task', component: EditTaskComponent },
   { path: 'new-list', component: NewListComponent },

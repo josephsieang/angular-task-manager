@@ -20,6 +20,7 @@ import { FocusDirective } from './focus.directive';
     EditListComponent,
     EditTaskComponent,
     FocusDirective,
+    HomeComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, FontAwesomeModule],
   providers: [],
