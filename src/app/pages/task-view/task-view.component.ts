@@ -47,10 +47,12 @@ export class TaskViewComponent implements OnInit, DoCheck {
   getListsAndTasks() {
     this.route.params.subscribe((params: Params) => {
       const allTasks = this.taskService.getTasks();
-      this.tasks = [];
-      for (let { listTitle, tasks } of allTasks) {
-        if (listTitle === params['listName']) {
-          this.tasks = tasks;
+      if (allTasks.length > 0) {
+        this.tasks = [];
+        for (let { listTitle, tasks } of allTasks) {
+          if (listTitle === params['listName']) {
+            this.tasks = tasks;
+          }
         }
       }
     });
