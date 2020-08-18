@@ -7,6 +7,7 @@ import {
   faTrashAlt,
   faUserEdit,
 } from '@fortawesome/free-solid-svg-icons';
+import { AuthenticationService } from 'src/app/authentication.service';
 
 interface taskInterface {
   title: string;
@@ -29,6 +30,7 @@ export class TaskViewComponent implements OnInit, DoCheck {
 
   constructor(
     private taskService: TaskService,
+    private authenticationService: AuthenticationService,
     private route: ActivatedRoute,
     private router: Router
   ) {}
@@ -105,5 +107,9 @@ export class TaskViewComponent implements OnInit, DoCheck {
 
   taskCompletion(title: string): void {
     this.taskService.editTask(title, null, true);
+  }
+
+  signOut() {
+    this.authenticationService.logout();
   }
 }

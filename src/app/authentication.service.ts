@@ -50,6 +50,7 @@ export class AuthenticationService {
 
   logout() {
     this.oauthService.logOut();
+    this.router.navigate(['/home']);
   }
 
   saveTokensToSessionStorage() {
