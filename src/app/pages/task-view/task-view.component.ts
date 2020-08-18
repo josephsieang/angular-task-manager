@@ -1,4 +1,4 @@
-import { Component, OnInit, NgZone, OnChanges, DoCheck } from '@angular/core';
+import { Component, OnInit, DoCheck } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { TaskService } from 'src/app/task.service';
 import { listsInterface } from 'src/app/task-local-storage.service';
@@ -27,6 +27,7 @@ export class TaskViewComponent implements OnInit, DoCheck {
   taskEditIcon = faUserEdit;
   disabled = true;
   prevListLength: number;
+  prevTaskLength: number;
 
   constructor(
     private taskService: TaskService,
@@ -41,7 +42,11 @@ export class TaskViewComponent implements OnInit, DoCheck {
 
   ngDoCheck(): void {
     const curListLength = this.taskService.getLists().length;
-    if (curListLength !== this.prevListLength) {
+    const curTaskLength = this.taskService.getTasks().length;
+    if (
+      curListLength !== this.prevListLength ||
+      curTaskLength !== this.prevTaskLength
+    ) {
       this.getListsAndTasks();
     }
   }
@@ -49,6 +54,7 @@ export class TaskViewComponent implements OnInit, DoCheck {
   getListsAndTasks() {
     this.route.params.subscribe((params: Params) => {
       const allTasks = this.taskService.getTasks();
+      this.prevTaskLength = allTasks.length;
       if (allTasks.length > 0) {
         this.tasks = [];
         for (let { listTitle, tasks } of allTasks) {
