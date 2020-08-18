@@ -16,6 +16,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './pages/home/home.component';
 import { LoadingComponent } from './pages/loading/loading.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     FocusDirective,
     HomeComponent,
     LoadingComponent,
+    NotFoundComponent,
   ],
   imports: [
     BrowserModule,

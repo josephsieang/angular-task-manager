@@ -11,6 +11,7 @@ import { LoadingComponent } from './pages/loading/loading.component';
 
 import { AuthGuardService } from './auth-guard.service';
 import { ListGuardService } from './list-guard.service';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -31,6 +32,7 @@ const routes: Routes = [
       { path: 'edit-task', component: EditTaskComponent },
     ],
   },
+  { path: '**', component: NotFoundComponent },
 ];
 
 @NgModule({

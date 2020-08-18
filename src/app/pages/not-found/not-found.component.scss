@@ -1,0 +1,5 @@
+@use "../../../main-styles" as ms;
+
+.container {
+  @include ms.container-centered();
+}
