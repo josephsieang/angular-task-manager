@@ -19,7 +19,7 @@ export class NewListComponent implements OnInit {
 
   createNewList(title: string) {
     this.taskService.createList(title);
-    this.router.navigate(['lists', title]);
+    this.router.navigate(['/lists', title]);
   }
 
   cancel() {
