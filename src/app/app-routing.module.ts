@@ -6,8 +6,8 @@ import { NewListComponent } from './pages/new/new-list/new-list.component';
 import { NewTaskComponent } from './pages/new/new-task/new-task.component';
 import { EditListComponent } from './pages/new/edit-list/edit-list.component';
 import { EditTaskComponent } from './pages/new/edit-task/edit-task.component';
-import { HomeComponent } from './home/home.component';
-import { LoadingComponent } from './loading/loading.component';
+import { HomeComponent } from './pages/home/home.component';
+import { LoadingComponent } from './pages/loading/loading.component';
 
 import { AuthGuardService } from './auth-guard.service';
 import { ListGuardService } from './list-guard.service';

@@ -13,8 +13,8 @@ import { FocusDirective } from './focus.directive';
 
 import { OAuthModule } from 'angular-oauth2-oidc';
 import { HttpClientModule } from '@angular/common/http';
-import { HomeComponent } from './home/home.component';
-import { LoadingComponent } from './loading/loading.component';
+import { HomeComponent } from './pages/home/home.component';
+import { LoadingComponent } from './pages/loading/loading.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({

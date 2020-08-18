@@ -1,4 +1,4 @@
-@use "../../main-styles" as ms;
+@use "../../../main-styles" as ms;
 
 .container {
   @include ms.container-centered();

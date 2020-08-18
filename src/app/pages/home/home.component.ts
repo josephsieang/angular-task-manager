@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AuthenticationService } from '../authentication.service';
+import { AuthenticationService } from '../../authentication.service';
 import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 
 @Component({
