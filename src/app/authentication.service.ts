@@ -2,12 +2,11 @@ import { Injectable } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { OAuthService } from 'angular-oauth2-oidc';
-import { JwksValidationHandler } from 'angular-oauth2-oidc-jwks';
 import { authCodeFlowConfig } from './auth.config';
 
 import { map } from 'rxjs/operators';
-import { TaskService } from './task.service';
 import { Tokens } from './interfaces/tokens';
+import { TaskService } from './task.service';
 
 @Injectable({
   providedIn: 'root',
@@ -15,6 +14,7 @@ import { Tokens } from './interfaces/tokens';
 export class AuthenticationService {
   constructor(
     private oauthService: OAuthService,
+    private taskService: TaskService,
     private route: ActivatedRoute,
     private router: Router
   ) {}
@@ -55,7 +55,9 @@ export class AuthenticationService {
 
   saveTokensToSessionStorage() {
     this.oauthService.tryLoginImplicitFlow().then(() => {
-      this.router.navigate(['/lists']);
+      const list = this.taskService.getLists();
+      if (list.length > 0) this.router.navigate(['/lists', list[0].title]);
+      else this.router.navigate(['/lists']);
     });
   }
 
