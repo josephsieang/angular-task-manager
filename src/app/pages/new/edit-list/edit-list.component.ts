@@ -20,7 +20,7 @@ export class EditListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.route.params.subscribe((params: Params) => {
+    this.route.parent.params.subscribe((params: Params) => {
       this.oldTitle = params['listName'];
     });
   }
