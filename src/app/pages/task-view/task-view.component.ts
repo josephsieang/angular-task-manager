@@ -89,11 +89,12 @@ export class TaskViewComponent implements OnInit, DoCheck {
       deleteTitle = params['listName'];
     });
     this.taskService.deleteList(deleteTitle);
-    this.router.navigate(['']);
+    this.router.navigate(['/lists']);
   }
 
   deleteWholeList(): void {
     this.taskService.deleteWholeList();
+    this.router.navigate(['/lists']);
   }
 
   deleteTask(title: string): void {
