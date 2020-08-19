@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { TaskService } from './task.service';
-import { Router } from '@angular/router';
+import { Router, CanActivate } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
 })
-export class ListGuardService {
+export class ListGuardService implements CanActivate {
   constructor(private taskService: TaskService, private router: Router) {}
 
   canActivate() {
