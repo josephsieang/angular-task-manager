@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TaskService } from 'src/app/task.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { UrlEncodingService } from 'src/app/url-encoding.service';
 import { Location } from '@angular/common';
 
 @Component({
