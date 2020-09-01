@@ -1,4 +1,4 @@
-import { Component, OnInit, NgZone, OnChanges, DoCheck } from '@angular/core';
+import { Component, OnInit, DoCheck } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { TaskService } from 'src/app/task.service';
 import { listsInterface } from 'src/app/task-local-storage.service';
@@ -7,6 +7,7 @@ import {
   faTrashAlt,
   faUserEdit,
 } from '@fortawesome/free-solid-svg-icons';
+import { AuthenticationService } from 'src/app/authentication.service';
 
 interface taskInterface {
   title: string;
@@ -26,9 +27,11 @@ export class TaskViewComponent implements OnInit, DoCheck {
   taskEditIcon = faUserEdit;
   disabled = true;
   prevListLength: number;
+  prevTaskLength: number;
 
   constructor(
     private taskService: TaskService,
+    private authenticationService: AuthenticationService,
     private route: ActivatedRoute,
     private router: Router
   ) {}
@@ -39,7 +42,11 @@ export class TaskViewComponent implements OnInit, DoCheck {
 
   ngDoCheck(): void {
     const curListLength = this.taskService.getLists().length;
-    if (curListLength !== this.prevListLength) {
+    const curTaskLength = this.taskService.getTasks().length;
+    if (
+      curListLength !== this.prevListLength ||
+      curTaskLength !== this.prevTaskLength
+    ) {
       this.getListsAndTasks();
     }
   }
@@ -47,10 +54,13 @@ export class TaskViewComponent implements OnInit, DoCheck {
   getListsAndTasks() {
     this.route.params.subscribe((params: Params) => {
       const allTasks = this.taskService.getTasks();
-      this.tasks = [];
-      for (let { listTitle, tasks } of allTasks) {
-        if (listTitle === params['listName']) {
-          this.tasks = tasks;
+      this.prevTaskLength = allTasks.length;
+      if (allTasks.length > 0) {
+        this.tasks = [];
+        for (let { listTitle, tasks } of allTasks) {
+          if (listTitle === params['listName']) {
+            this.tasks = tasks;
+          }
         }
       }
     });
@@ -89,11 +99,12 @@ export class TaskViewComponent implements OnInit, DoCheck {
       deleteTitle = params['listName'];
     });
     this.taskService.deleteList(deleteTitle);
-    this.router.navigate(['']);
+    this.router.navigate(['/lists']);
   }
 
   deleteWholeList(): void {
     this.taskService.deleteWholeList();
+    this.router.navigate(['/lists']);
   }
 
   deleteTask(title: string): void {
@@ -102,5 +113,13 @@ export class TaskViewComponent implements OnInit, DoCheck {
 
   taskCompletion(title: string): void {
     this.taskService.editTask(title, null, true);
+  }
+
+  signOut() {
+    this.authenticationService.logout();
+  }
+
+  obtainChildLength(): number {
+    return this.route.children.length;
   }
 }

@@ -4,6 +4,8 @@ import {
   listsInterface,
   tasksInterface,
 } from './task-local-storage.service';
+import { Tokens } from './interfaces/tokens';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -50,7 +52,12 @@ export class TaskService {
   }
 
   deleteWholeList() {
-    if (confirm('Are you sure to delete the whole list and all its tasks?'))
+    if (confirm('Are you sure to delete the whole list and all its tasks?')) {
       this.taskLocalStorageService.deleteWholeList();
+    }
+  }
+
+  saveTokens(tokenObj: Tokens) {
+    this.taskLocalStorageService.saveTokens(tokenObj);
   }
 }

@@ -11,6 +11,13 @@ import { EditListComponent } from './pages/new/edit-list/edit-list.component';
 import { EditTaskComponent } from './pages/new/edit-task/edit-task.component';
 import { FocusDirective } from './focus.directive';
 
+import { OAuthModule } from 'angular-oauth2-oidc';
+import { HttpClientModule } from '@angular/common/http';
+import { HomeComponent } from './pages/home/home.component';
+import { LoadingComponent } from './pages/loading/loading.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -20,8 +27,18 @@ import { FocusDirective } from './focus.directive';
     EditListComponent,
     EditTaskComponent,
     FocusDirective,
+    HomeComponent,
+    LoadingComponent,
+    NotFoundComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, FontAwesomeModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FontAwesomeModule,
+    HttpClientModule,
+    OAuthModule.forRoot(),
+    MatProgressSpinnerModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })
