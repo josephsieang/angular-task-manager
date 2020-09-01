@@ -9,7 +9,7 @@ import { Location } from '@angular/common';
   styleUrls: ['./edit-task.component.scss'],
 })
 export class EditTaskComponent implements OnInit {
-  oldTitle: string = '';
+  oldTitle = '';
   constructor(
     private route: ActivatedRoute,
     private taskService: TaskService,
@@ -18,7 +18,7 @@ export class EditTaskComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {
-      this.oldTitle = params['taskname'];
+      this.oldTitle = params[`taskname`];
     });
   }
 
@@ -27,7 +27,7 @@ export class EditTaskComponent implements OnInit {
     this.location.back();
   }
 
-  cancel() {
+  cancel(): void {
     this.location.back();
   }
 }

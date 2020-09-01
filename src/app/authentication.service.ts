@@ -22,7 +22,7 @@ export class AuthenticationService {
   get userName(): string {
     const claims = this.oauthService.getIdentityClaims();
     if (!claims) return null;
-    return claims['given_name'];
+    return claims[`given_name`];
   }
 
   get tokens(): Tokens {
@@ -40,20 +40,20 @@ export class AuthenticationService {
     return tokens;
   }
 
-  refresh() {
+  refresh(): void {
     this.oauthService.refreshToken();
   }
 
-  login() {
+  login(): void {
     this.oauthService.initImplicitFlow();
   }
 
-  logout() {
+  logout(): void {
     this.oauthService.logOut();
     this.router.navigate(['/home']);
   }
 
-  saveTokensToSessionStorage() {
+  saveTokensToSessionStorage(): void {
     this.oauthService.tryLoginImplicitFlow().then(() => {
       const list = this.taskService.getLists();
       if (list.length > 0) this.router.navigate(['/lists', list[0].title]);
@@ -61,11 +61,11 @@ export class AuthenticationService {
     });
   }
 
-  configureOAuth() {
+  configureOAuth(): void {
     this.oauthService.configure(authCodeFlowConfig);
     this.oauthService.setStorage(sessionStorage);
     // this.oauthService.tokenValidationHandler = new JwksValidationHandler();
-    let url = 'https://accounts.google.com/.well-known/openid-configuration';
+    const url = 'https://accounts.google.com/.well-known/openid-configuration';
     this.oauthService.loadDiscoveryDocument(url).then(() => {
       this.oauthService
         .tryLogin()

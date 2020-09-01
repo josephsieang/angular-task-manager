@@ -13,7 +13,7 @@ import { AuthGuardService } from './auth-guard.service';
 import { ListGuardService } from './list-guard.service';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 
-const routes: Routes = [
+export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'loading', component: LoadingComponent },

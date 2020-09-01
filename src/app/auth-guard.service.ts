@@ -8,9 +8,9 @@ import { Router } from '@angular/router';
 export class AuthGuardService {
   constructor(private oauthService: OAuthService, private router: Router) {}
 
-  canActivate() {
-    var hasIdToken = this.oauthService.hasValidIdToken();
-    var hasAccessToken = this.oauthService.hasValidAccessToken();
+  canActivate(): boolean {
+    const hasIdToken = this.oauthService.hasValidIdToken();
+    const hasAccessToken = this.oauthService.hasValidAccessToken();
 
     if (!hasIdToken && !hasAccessToken) {
       this.router.navigate(['/home']);

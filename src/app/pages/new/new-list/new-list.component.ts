@@ -17,12 +17,12 @@ export class NewListComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  createNewList(title: string) {
+  createNewList(title: string): void {
     this.taskService.createList(title);
     this.router.navigate(['/lists', title]);
   }
 
-  cancel() {
+  cancel(): void {
     this.location.back();
   }
 }

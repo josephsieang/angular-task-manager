@@ -8,7 +8,7 @@ import { Router, CanActivate } from '@angular/router';
 export class ListGuardService implements CanActivate {
   constructor(private taskService: TaskService, private router: Router) {}
 
-  canActivate() {
+  canActivate(): boolean {
     const list = this.taskService.getLists();
     if (list.length > 0) {
       this.router.navigate(['/lists', list[0].title]);

@@ -1,15 +1,34 @@
 import { TestBed, async } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
+// import { RouterTestingModule } from '@angular/router/testing';
+import { routes } from './app-routing.module';
 import { AppComponent } from './app.component';
+import {
+  OAuthService,
+  UrlHelperService,
+  OAuthLogger,
+} from 'angular-oauth2-oidc';
+import { HttpHandler, HttpClient } from '@angular/common/http';
+import { AuthenticationService } from './authentication.service';
+import { TaskService } from './task.service';
+import { TaskLocalStorageService } from './task-local-storage.service';
+import { RouterModule } from '@angular/router';
+import { APP_BASE_HREF } from '@angular/common';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule
-      ],
-      declarations: [
-        AppComponent
+      imports: [RouterModule.forRoot(routes)],
+      declarations: [AppComponent],
+      providers: [
+        { provide: APP_BASE_HREF, useValue: '/' },
+        OAuthService,
+        HttpClient,
+        AuthenticationService,
+        TaskService,
+        TaskLocalStorageService,
+        HttpHandler,
+        UrlHelperService,
+        OAuthLogger,
       ],
     }).compileComponents();
   }));
@@ -24,12 +43,5 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
     expect(app.title).toEqual('task-manager');
-  });
-
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('task-manager app is running!');
   });
 });
