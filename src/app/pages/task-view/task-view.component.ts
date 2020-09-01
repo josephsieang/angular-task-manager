@@ -1,7 +1,7 @@
 import { Component, OnInit, DoCheck } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { TaskService } from 'src/app/task.service';
-import { listsInterface } from 'src/app/task-local-storage.service';
+import { Lists } from 'src/app/task-local-storage.service';
 import {
   faCog,
   faTrashAlt,
@@ -9,7 +9,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { AuthenticationService } from 'src/app/authentication.service';
 
-interface taskInterface {
+interface Task {
   title: string;
   completed: boolean;
 }
@@ -20,8 +20,8 @@ interface taskInterface {
   styleUrls: ['./task-view.component.scss'],
 })
 export class TaskViewComponent implements OnInit, DoCheck {
-  lists: listsInterface[];
-  tasks: taskInterface[];
+  lists: Lists[];
+  tasks: Task[];
   listSettingIcon = faCog;
   taskDeleteIcon = faTrashAlt;
   taskEditIcon = faUserEdit;
@@ -51,14 +51,14 @@ export class TaskViewComponent implements OnInit, DoCheck {
     }
   }
 
-  getListsAndTasks() {
+  getListsAndTasks(): void {
     this.route.params.subscribe((params: Params) => {
       const allTasks = this.taskService.getTasks();
       this.prevTaskLength = allTasks.length;
       if (allTasks.length > 0) {
         this.tasks = [];
-        for (let { listTitle, tasks } of allTasks) {
-          if (listTitle === params['listName']) {
+        for (const { listTitle, tasks } of allTasks) {
+          if (listTitle === params[`listName`]) {
             this.tasks = tasks;
           }
         }
@@ -96,7 +96,7 @@ export class TaskViewComponent implements OnInit, DoCheck {
   deleteList(): void {
     let deleteTitle = '';
     this.route.params.subscribe((params: Params) => {
-      deleteTitle = params['listName'];
+      deleteTitle = params[`listName`];
     });
     this.taskService.deleteList(deleteTitle);
     this.router.navigate(['/lists']);
@@ -115,7 +115,7 @@ export class TaskViewComponent implements OnInit, DoCheck {
     this.taskService.editTask(title, null, true);
   }
 
-  signOut() {
+  signOut(): void {
     this.authenticationService.logout();
   }
 

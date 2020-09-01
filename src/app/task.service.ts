@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import {
   TaskLocalStorageService,
-  listsInterface,
-  tasksInterface,
+  Lists,
+  Tasks,
 } from './task-local-storage.service';
 import { Tokens } from './interfaces/tokens';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -13,27 +13,31 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class TaskService {
   constructor(private taskLocalStorageService: TaskLocalStorageService) {}
 
-  createList(title: string): listsInterface[] {
+  createList(title: string): Lists[] {
     return this.taskLocalStorageService.createLists(title);
   }
 
-  getLists(): listsInterface[] {
+  getLists(): Lists[] {
     return this.taskLocalStorageService.getLists();
   }
 
-  createTask(title: string): tasksInterface[] {
+  createTask(title: string): Tasks[] {
     return this.taskLocalStorageService.createTasks(title);
   }
 
-  getTasks(): tasksInterface[] {
+  getTasks(): Tasks[] {
     return this.taskLocalStorageService.getTasks();
   }
 
-  editList(title: string): listsInterface[] {
+  editList(title: string): Lists[] {
     return this.taskLocalStorageService.editLists(title);
   }
 
-  editTask(oldTitle: string, newTitle?: string, switchIsCompleted?: boolean) {
+  editTask(
+    oldTitle: string,
+    newTitle?: string,
+    switchIsCompleted?: boolean
+  ): void {
     this.taskLocalStorageService.editTasks(
       oldTitle,
       newTitle,
@@ -41,23 +45,23 @@ export class TaskService {
     );
   }
 
-  deleteTask(title: string) {
+  deleteTask(title: string): void {
     if (confirm('Are you sure to delete this task?'))
       this.taskLocalStorageService.deleteTask(title);
   }
 
-  deleteList(title: string) {
+  deleteList(title: string): void {
     if (confirm('Are you sure to delete this list?'))
       this.taskLocalStorageService.deleteList(title);
   }
 
-  deleteWholeList() {
+  deleteWholeList(): void {
     if (confirm('Are you sure to delete the whole list and all its tasks?')) {
       this.taskLocalStorageService.deleteWholeList();
     }
   }
 
-  saveTokens(tokenObj: Tokens) {
+  saveTokens(tokenObj: Tokens): void {
     this.taskLocalStorageService.saveTokens(tokenObj);
   }
 }

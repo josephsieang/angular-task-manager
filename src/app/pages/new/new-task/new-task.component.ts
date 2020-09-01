@@ -12,12 +12,12 @@ export class NewTaskComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  createNewTask(title: string) {
+  createNewTask(title: string): void {
     this.taskService.createTask(title);
     this.location.back();
   }
 
-  cancel() {
+  cancel(): void {
     this.location.back();
   }
 }

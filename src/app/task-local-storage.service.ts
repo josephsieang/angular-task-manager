@@ -1,12 +1,14 @@
+/* tslint:disable:prefer-for-of */
+
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { UrlEncodingService } from './url-encoding.service';
 import { Tokens } from './interfaces/tokens';
 
-export interface listsInterface {
+export interface Lists {
   title: string;
 }
-export interface tasksInterface {
+export interface Tasks {
   listTitle: string;
   tasks: {
     title: string;
@@ -23,8 +25,8 @@ const tokenPath = '/token';
   providedIn: 'root',
 })
 export class TaskLocalStorageService {
-  private lists: listsInterface[];
-  private tasks: tasksInterface[];
+  private lists: Lists[];
+  private tasks: Tasks[];
   private tokens: Tokens;
 
   constructor(
@@ -32,8 +34,8 @@ export class TaskLocalStorageService {
     private urlEncodingService: UrlEncodingService
   ) {
     // Parse the data with JSON.parse(), and the data becomes a JavaScript object.
-    let lists = localStorage.getItem(storageName + listPath);
-    let tasks = localStorage.getItem(storageName + taskPath);
+    const lists = localStorage.getItem(storageName + listPath);
+    const tasks = localStorage.getItem(storageName + taskPath);
 
     if (lists !== null) this.lists = JSON.parse(lists);
     else this.lists = [];
@@ -42,59 +44,59 @@ export class TaskLocalStorageService {
     else this.tasks = [];
   }
 
-  getLists(): listsInterface[] {
+  getLists(): Lists[] {
     return this.lists;
   }
 
-  private updateListsInLocalStorage(): listsInterface[] {
+  private updateListsInLocalStorage(): Lists[] {
     // Convert a JavaScript object into a string with JSON.stringify()
     localStorage.setItem(storageName + listPath, JSON.stringify(this.lists));
     return this.getLists();
   }
 
-  getTasks(): tasksInterface[] {
+  getTasks(): Tasks[] {
     return this.tasks;
   }
 
-  private updateTasksInLocalStorage(): tasksInterface[] {
+  private updateTasksInLocalStorage(): Tasks[] {
     // Convert a JavaScript object into a string with JSON.stringify()
     localStorage.setItem(storageName + taskPath, JSON.stringify(this.tasks));
     return this.getTasks();
   }
 
-  createLists(title: string): listsInterface[] {
-    this.lists.push({ title: title });
+  createLists(title: string): Lists[] {
+    this.lists.push({ title });
     return this.updateListsInLocalStorage();
   }
 
-  private getListTitleFromRoute() {
+  private getListTitleFromRoute(): string {
     return this.urlEncodingService.ngDecode(this.route.url.split('/')[2]);
   }
 
-  createTasks(title: string): tasksInterface[] {
+  createTasks(title: string): Tasks[] {
     let newListTitle = true;
 
-    for (let { listTitle, tasks } of this.tasks) {
+    for (const { listTitle, tasks } of this.tasks) {
       if (listTitle === this.getListTitleFromRoute()) {
-        tasks.push({ title: title, completed: false });
+        tasks.push({ title, completed: false });
         newListTitle = false;
       }
     }
     if (newListTitle) {
       this.tasks.push({
         listTitle: this.getListTitleFromRoute(),
-        tasks: [{ title: title, completed: false }],
+        tasks: [{ title, completed: false }],
       });
     }
 
     return this.updateTasksInLocalStorage();
   }
 
-  editLists(newTitle: string): listsInterface[] {
+  editLists(newTitle: string): Lists[] {
     for (let i = 0; i < this.tasks.length; ++i) {
       const { listTitle } = this.tasks[i];
       if (listTitle === this.getListTitleFromRoute()) {
-        this.tasks[i]['listTitle'] = newTitle;
+        this.tasks[i][`listTitle`] = newTitle;
         break;
       }
     }
@@ -102,7 +104,7 @@ export class TaskLocalStorageService {
     for (let i = 0; i < this.lists.length; ++i) {
       const { title } = this.lists[i];
       if (title === this.getListTitleFromRoute()) {
-        this.lists[i]['title'] = newTitle;
+        this.lists[i][`title`] = newTitle;
         break;
       }
     }
@@ -111,7 +113,11 @@ export class TaskLocalStorageService {
     return this.updateListsInLocalStorage();
   }
 
-  editTasks(oldTitle: string, newTitle?: string, switchIsCompleted?: boolean) {
+  editTasks(
+    oldTitle: string,
+    newTitle?: string,
+    switchIsCompleted?: boolean
+  ): void {
     for (let i = 0; i < this.tasks.length; ++i) {
       const { listTitle } = this.tasks[i];
       if (listTitle === this.getListTitleFromRoute()) {
@@ -133,7 +139,7 @@ export class TaskLocalStorageService {
     this.updateTasksInLocalStorage();
   }
 
-  deleteTask(deleteTitle: string) {
+  deleteTask(deleteTitle: string): void {
     for (let i = 0; i < this.tasks.length; ++i) {
       const { listTitle } = this.tasks[i];
       if (listTitle === this.getListTitleFromRoute()) {
@@ -151,7 +157,7 @@ export class TaskLocalStorageService {
     this.updateTasksInLocalStorage();
   }
 
-  deleteList(deleteTitle: string) {
+  deleteList(deleteTitle: string): void {
     for (let i = 0; i < this.lists.length; ++i) {
       const { title } = this.lists[i];
 
@@ -172,7 +178,7 @@ export class TaskLocalStorageService {
     this.updateTasksInLocalStorage();
   }
 
-  deleteWholeList() {
+  deleteWholeList(): void {
     this.lists = [];
     this.tasks = [];
 
@@ -180,12 +186,12 @@ export class TaskLocalStorageService {
     this.updateTasksInLocalStorage();
   }
 
-  private updateTokensInLocalStorage() {
+  private updateTokensInLocalStorage(): void {
     // Convert a JavaScript object into a string with JSON.stringify()
     localStorage.setItem(storageName + tokenPath, JSON.stringify(this.tokens));
   }
 
-  saveTokens(tokens: Tokens) {
+  saveTokens(tokens: Tokens): void {
     console.log('local storage:', tokens);
     this.tokens = tokens;
     this.updateTokensInLocalStorage();

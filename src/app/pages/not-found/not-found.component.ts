@@ -12,11 +12,11 @@ export class NotFoundComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  goBack() {
+  goBack(): void {
     this.location.back();
   }
 
-  goHome() {
+  goHome(): void {
     this.router.navigate(['/home']);
   }
 }

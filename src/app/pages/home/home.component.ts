@@ -11,7 +11,7 @@ export class HomeComponent {
   googleIcon = faGoogle;
   constructor(private authenticationService: AuthenticationService) {}
 
-  login() {
+  login(): void {
     this.authenticationService.login();
   }
 }
