@@ -1,0 +1,37 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+    - main
+    - develop
+  pull_request:
+    branches:
+    - main
+    - develop
+
+jobs:
+ build-and-deploy:
+   runs-on: ubuntu-latest
+
+   steps:
+   - name: Checkout
+     uses: actions/checkout@v2
+
+   - name: Use Node.js 14.x
+     uses: actions/setup-node@v2-beta
+     with: 
+      node-version: '14'
+
+   - name: Prepare and deploy
+     env:
+       GH_TOKEN: ${{ secrets.GH_TOKEN }}
+     run: |
+       npm install
+       npm run lint
+       ###
+       # Configure Angular first!
+       ####
+       # npm test -- --watch=false --progress=false
+       ####
+       npm run ng -- deploy --base-href=/josephsieang.github.io/angular-task-manager/ --name="josephsieang" --email=joseph_sieang@live.com
